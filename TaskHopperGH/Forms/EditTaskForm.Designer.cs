@@ -38,6 +38,7 @@ namespace TaskHopper.Forms
             this.ClientSize = new System.Drawing.Size(447, 446);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "EditTaskForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Task";
             this.ResumeLayout(false);
 

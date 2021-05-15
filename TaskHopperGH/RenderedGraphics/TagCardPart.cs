@@ -10,7 +10,7 @@ namespace TaskHopper.RenderedGraphics
     class TagCardPart : CardPart
     {
         const float startPad = 4f;
-        static float gap => startPad + TaskCardConstants.PaddingH;
+        static float gap => startPad + TaskCardConstants.PaddingH - 1.5f;
         public TagCardPart(string text) 
             : base(null, text, TaskCardConstants.OffBlack, gap)
         {

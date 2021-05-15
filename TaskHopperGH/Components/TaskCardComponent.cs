@@ -18,9 +18,9 @@ namespace TaskHopper.Components
               "TaskHopper", "Tasks")
         {
             
-            var tags = new List<string>() { "Test", "WillItWork??" };
+            var tags = new List<string>() { "Test", "Will It Work??","Probably Not" };
             SolvedTask = new TH_Task(
-                "Some Work To Do",
+                "A really really really long name, far too long, silly in fact",
                 "Not much fun",
                 "Dom Beer",
                 @"C:\Users\Dominic\source\repos\Taskhopper\TaskHopperGH\Images",
