@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{46354701-0B78-4E98-8E49-0ED348437F31}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TaskHopper</RootNamespace>
+    <AssemblyName>TaskHopper</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Eto, Version=2.3.6591.18824, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.0.18016.23451\lib\net45\Eto.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="GH_IO, Version=6.0.18016.23451, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.6.0.18016.23451\lib\net45\GH_IO.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Grasshopper, Version=6.0.18016.23451, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.6.0.18016.23451\lib\net45\Grasshopper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Rhino.UI, Version=6.0.18016.23451, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.0.18016.23451\lib\net45\Rhino.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RhinoCommon, Version=6.0.18016.23451, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.0.18016.23451\lib\net45\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\TaskCardAttributes.cs" />
+    <Compile Include="Components\TaskCardComponent.cs" />
+    <Compile Include="Core\TaskStatus.cs" />
+    <Compile Include="Core\TH_Task.cs" />
+    <Compile Include="Forms\EditTaskForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditTaskForm.Designer.cs">
+      <DependentUpon>EditTaskForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RenderedGraphics\ButtonCardPart.cs" />
+    <Compile Include="RenderedGraphics\CardPart.cs" />
+    <Compile Include="RenderedGraphics\TagCardPart.cs" />
+    <Compile Include="RenderedGraphics\TaskCard.cs" />
+    <Compile Include="RenderedGraphics\TaskCardConstants.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TaskComponent.cs" />
+    <Compile Include="TaskHopperGHInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ColorTransforms.cs" />
+    <Compile Include="Util\Functional.cs" />
+    <Compile Include="Util\ImmutableHashSet.cs" />
+    <Compile Include="Util\LinkOpening.cs" />
+    <Compile Include="Util\Serialization\ConvertFromIO.cs" />
+    <Compile Include="Util\Serialization\ConvertToIO.cs" />
+    <Compile Include="Util\Serialization\GetSetDelegates.cs" />
+    <Compile Include="Util\Serialization\GetSetDictionary.cs" />
+    <Compile Include="Util\Serialization\GetSetEnumerable.cs" />
+    <Compile Include="Util\Serialization\GetSetGeometryBase.cs" />
+    <Compile Include="Util\Serialization\GetSetGH.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Parameters\" />
+    <Folder Include="Types\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\EditTaskForm.resx">
+      <DependentUpon>EditTaskForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\IconDateTime.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\IconDone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\IconExpired.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\IconFolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\IconInProgress.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\IconOwner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\IconReview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\IconToDo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\IconDateTimeLate.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+Erase "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FallbackCulture>en-US</FallbackCulture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartProgram>C:\Program Files\Rhino 7\System\Rhino.exe</StartProgram>
+    <StartArguments>
+    </StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <Import Project="..\packages\RhinoCommon.6.0.18016.23451\build\net45\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.6.0.18016.23451\build\net45\RhinoCommon.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\RhinoCommon.6.0.18016.23451\build\net45\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.6.0.18016.23451\build\net45\RhinoCommon.targets'))" />
+    <Error Condition="!Exists('..\packages\Grasshopper.6.0.18016.23451\build\net45\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.6.0.18016.23451\build\net45\Grasshopper.targets'))" />
+  </Target>
+  <Import Project="..\packages\Grasshopper.6.0.18016.23451\build\net45\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.6.0.18016.23451\build\net45\Grasshopper.targets')" />
+</Project>
