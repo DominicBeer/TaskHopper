@@ -2,54 +2,37 @@
 using Rhino.Geometry;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using TaskHopper.Core;
-using TaskHopper.Parameters;
 
 namespace TaskHopper.Components
 {
-    public class TaskCardComponent : GH_Component
+    public class TEST : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the TaskCardComponent class.
+        /// Initializes a new instance of the TEST class.
         /// </summary>
-        public TaskCardComponent()
-          : base("TaskCardComponent", "Nickname",
+        public TEST()
+          : base("TEST", "Nickname",
               "Description",
-              "TaskHopper", "Tasks")
+              "Category", "Subcategory")
         {
-            
-            var tags = new List<string>() { "Test", "Will It Work??","Probably Not" };
-            SolvedTask = new TH_Task(
-                "A really really really long name, far too long, silly in fact",
-                "Some really boring task, sorry but you're not going to enjoy, better start grinding",
-                "Dom Beer",
-                @"C:\Users\Dominic\source\repos\Taskhopper\TaskHopperGH\Images",
-                Color.LawnGreen,
-                new DateTime(2021, 5, 25),
-                TaskStatus.InProgress,
-                tags);
-            Attributes = new TaskCardAttributes(this); 
+            this.Attributes = new TEST_ATTS(this);
         }
 
-        public TH_Task SolvedTask { get; }
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("", "", "Card", GH_ParamAccess.list);
-
-
+            pManager.AddGenericParameter("Card", "", "Card", GH_ParamAccess.list);
         }
 
         /// <summary>
         /// Registers all the output parameters for this component.
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
-
         {
-            pManager.AddGenericParameter("", "", "Card", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Card", "", "Card", GH_ParamAccess.item);
+            
         }
 
         /// <summary>
@@ -78,7 +61,7 @@ namespace TaskHopper.Components
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("a76203c9-68a8-4f2a-a559-53c728fa5d15"); }
+            get { return new Guid("d27aec8d-3641-4d16-a720-50a2345025db"); }
         }
     }
 }

@@ -7,6 +7,8 @@ using System.Drawing;
 using TaskHopper.Core;
 using Grasshopper.Kernel;
 using TCC = TaskHopper.RenderedGraphics.TaskCardConstants;
+using System.Windows.Forms;
+
 namespace TaskHopper.RenderedGraphics
 {
     class TaskCard
@@ -21,9 +23,15 @@ namespace TaskHopper.RenderedGraphics
         public float Width;
         public float Height;
 
+        private string Description;
+        private Size NameSize;
+        private float BottomOfParts;
+        private Size DescriptionSize;
+
         public TaskCard(TH_Task task, PointF pivot)
         {
             Name = task.Name;
+            Description = task.Description;
             Color = task.Color;
             var parts = new List<CardPart>();
 
@@ -77,7 +85,6 @@ namespace TaskHopper.RenderedGraphics
             Pivot = new PointF(0f, 0f);
             var widths = new List<float>();
             widths.Add(TCC.Width);
-            widths.Add((float)GH_FontServer.StringWidth(Name, TCC.NameFont) + 2*TCC.PaddingH);
             
             foreach(var part in Parts)
             {
@@ -88,7 +95,12 @@ namespace TaskHopper.RenderedGraphics
             Width = widths.Max();
             var seps = new List<PointF>();
             var rightEdgeX = TCC.PaddingH + TCC.BorderThickness;
-            var piv = new PointF(TCC.PaddingH + TCC.BorderThickness, TCC.NameBarHeight + TCC.PaddingV);
+
+            var nameTestBounds = new Size((int)(Width - 2 * TCC.PaddingH), int.MaxValue);
+            NameSize = TextRenderer.MeasureText(Name, TCC.NameFont, nameTestBounds, TextFormatFlags.WordBreak);
+
+
+            var piv = new PointF(TCC.PaddingH + TCC.BorderThickness, NameSize.Height + 3*TCC.PaddingV);
             for(int i = 0; i < Parts.Length-1; i++)
             {
                 var part = Parts[i];
@@ -110,7 +122,10 @@ namespace TaskHopper.RenderedGraphics
             }
             Separators = seps.ToArray();
             Parts.Last().Pivot = piv;
-            Height = piv.Y + TCC.PaddingV + TCC.PartHeight + TCC.BorderThickness;
+            BottomOfParts = piv.Y + TCC.PaddingV + TCC.PartHeight + TCC.BorderThickness;
+            var dTestBounds = new Size((int)(Width - 2 * TCC.PaddingH -2*TCC.BorderThickness), int.MaxValue);
+            DescriptionSize = TextRenderer.MeasureText(Description, TCC.PartFont, dTestBounds, TextFormatFlags.WordBreak);
+            Height = BottomOfParts + 2 * TCC.PaddingV + DescriptionSize.Height;
             MoveTo(pivot);
         }
 
@@ -122,6 +137,7 @@ namespace TaskHopper.RenderedGraphics
             RenderBorder(graphics, border);
             RenderNameBar(graphics, pivot);
             RenderText(graphics, pivot);
+            RenderDescription(graphics, pivot);
 
             foreach(var part in Parts)
             {
@@ -139,20 +155,30 @@ namespace TaskHopper.RenderedGraphics
 
         private void RenderText(Graphics graphics, PointF pivot)
         {
-            var nameBounds = new RectangleF(pivot.X + TCC.PaddingH, pivot.Y, Width - TCC.PaddingH, TCC.NameBarHeight);
+            var nameBounds = new RectangleF(pivot.X + TCC.PaddingH, pivot.Y + TCC.PaddingV, NameSize.Width, NameSize.Height);
             StringFormat format = new StringFormat();
             format.Alignment = StringAlignment.Near;
-            format.LineAlignment = StringAlignment.Center;
-            format.Trimming = StringTrimming.Character;
+            format.Trimming = StringTrimming.EllipsisWord;
             var txtBrush = new SolidBrush(TCC.OffBlack);
             graphics.DrawString(Name, TCC.NameFont, txtBrush, nameBounds, format);
+            txtBrush.Dispose();
+        }
+
+        private void RenderDescription(Graphics graphics, PointF pivot)
+        {
+            var dBounds = new RectangleF(pivot.X + TCC.PaddingH + TCC.BorderThickness, pivot.Y + BottomOfParts + TCC.PaddingV, DescriptionSize.Width, DescriptionSize.Height);
+            StringFormat format = new StringFormat();
+            format.Alignment = StringAlignment.Near;
+            format.Trimming = StringTrimming.EllipsisWord;
+            var txtBrush = new SolidBrush(TCC.OffBlack);
+            graphics.DrawString(Description, TCC.PartFont, txtBrush, dBounds, format);
             txtBrush.Dispose();
         }
 
         private void RenderNameBar(Graphics graphics, PointF pivot)
         {
             var borderBrush = new SolidBrush(Color);
-            var nameBar = new RectangleF(new PointF(pivot.X +1f, pivot.Y +1f), new SizeF(Width - 1, TCC.NameBarHeight));
+            var nameBar = new RectangleF(new PointF(pivot.X +1f, pivot.Y +1f), new SizeF(Width - 2f, NameSize.Height + TCC.PaddingV));
             graphics.FillRectangle(borderBrush, nameBar);
 
             borderBrush.Dispose();

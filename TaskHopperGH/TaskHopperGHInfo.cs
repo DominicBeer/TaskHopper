@@ -6,6 +6,10 @@ namespace TaskHopper
 {
     public class TaskHopperGHInfo : GH_AssemblyInfo
     {
+        public TaskHopperGHInfo() : base()
+        {
+            var bob = "cheese";
+        }
         public override string Name
         {
             get

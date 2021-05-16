@@ -13,7 +13,7 @@ namespace TaskHopper.RenderedGraphics
     {
         public static float Width => 180f;
         public static float NameBarHeight => 17f;
-        public static float BorderThickness => 3f;
+        public static float BorderThickness => 5f;
         public static float PartHeight => 14f;
         public static float PartIconWidth => 14f;
         public static float PaddingV => 3f;

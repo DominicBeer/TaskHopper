@@ -20,7 +20,7 @@ namespace TaskHopper.Core
     {
         public static string AsString(this TaskStatus status) => mapper[status];
 
-        private static Dictionary<TaskStatus, string> mapper = new Dictionary<TaskStatus, string>()
+        internal static Dictionary<TaskStatus, string> mapper = new Dictionary<TaskStatus, string>()
         {
             {TaskStatus.Expired, "Expired" },
             {TaskStatus.ToDo, "To Do" },
@@ -30,11 +30,45 @@ namespace TaskHopper.Core
         };
     }
 
+    class TaskStatusWriter
+    {
+        TaskStatus Status;
+
+        public TaskStatusWriter(TaskStatus status)
+        {
+            Status = status;
+        }
+        public override string ToString()
+        {
+            return Status.AsString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is TaskStatusWriter other
+                ? other.Status == Status
+                : false;
+        }
+        public override int GetHashCode()
+        {
+            return Status.GetHashCode();
+        }
+
+        public static TaskStatusWriter[] All => new TaskStatusWriter[] 
+        {
+            new TaskStatusWriter(TaskStatus.Expired),
+            new TaskStatusWriter(TaskStatus.ToDo),
+            new TaskStatusWriter(TaskStatus.InProgress),
+            new TaskStatusWriter(TaskStatus.Review),
+            new TaskStatusWriter(TaskStatus.Done)
+        };
+    }
+
     static class TaskStatusColors
     {
         public static Color GetColor(this TaskStatus status) => mapper[status];
 
-        private static Dictionary<TaskStatus, Color> mapper = new Dictionary<TaskStatus, Color>()
+        internal static Dictionary<TaskStatus, Color> mapper = new Dictionary<TaskStatus, Color>()
         {
             {TaskStatus.Expired, Color.FromArgb(198,22,22) },
             {TaskStatus.ToDo, Color.FromArgb(231,60,0) },

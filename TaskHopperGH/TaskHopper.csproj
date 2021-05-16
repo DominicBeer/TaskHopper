@@ -69,6 +69,10 @@
   <ItemGroup>
     <Compile Include="Components\TaskCardAttributes.cs" />
     <Compile Include="Components\TaskCardComponent.cs" />
+    <Compile Include="Components\TEST.cs" />
+    <Compile Include="Components\TEST_ATTS.cs" />
+    <Compile Include="Core\NameServer.cs" />
+    <Compile Include="Core\TagServer.cs" />
     <Compile Include="Core\TaskStatus.cs" />
     <Compile Include="Core\TH_Task.cs" />
     <Compile Include="Forms\EditTaskForm.cs">
@@ -77,6 +81,7 @@
     <Compile Include="Forms\EditTaskForm.Designer.cs">
       <DependentUpon>EditTaskForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parameters\ParamAttributes.cs" />
     <Compile Include="RenderedGraphics\ButtonCardPart.cs" />
     <Compile Include="RenderedGraphics\CardPart.cs" />
     <Compile Include="RenderedGraphics\TagCardPart.cs" />
@@ -90,6 +95,7 @@
     <Compile Include="TaskHopperGHInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ColorTransforms.cs" />
+    <Compile Include="Util\ExtMethods.cs" />
     <Compile Include="Util\Functional.cs" />
     <Compile Include="Util\ImmutableHashSet.cs" />
     <Compile Include="Util\LinkOpening.cs" />
@@ -100,12 +106,12 @@
     <Compile Include="Util\Serialization\GetSetEnumerable.cs" />
     <Compile Include="Util\Serialization\GetSetGeometryBase.cs" />
     <Compile Include="Util\Serialization\GetSetGH.cs" />
+    <Compile Include="Util\TestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Parameters\" />
     <Folder Include="Types\" />
   </ItemGroup>
   <ItemGroup>
