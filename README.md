@@ -14,3 +14,7 @@ cannot be ahead of the tasks it is dependent upon. If, due to a project change, 
 downstream tasks are expired as well. 
 
 Aim 2 - create a Kanban board to display the cards for their status vs either owner or tags
+
+Current Progress (15/05/21)
+- Have a test task card attributes working (custom component ui).
+- Next up: flesh out the component to have params and solve instance. Do the data entry form on the component.
