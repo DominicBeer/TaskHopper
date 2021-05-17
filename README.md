@@ -20,6 +20,7 @@ Progress Diary
 
 17/05/21
 - Have begun to implement the the windows form to edit the task card. Currently it reads info from the card, the user can edit the data in the form, but the card does not receive the data when it is closed.
-- Next up - refactor tag adding mechanism to single control
+Next up 
+- refactor tag adding mechanism to single control
 - Implement tag scraping mechanism
 - Add "OpenEditForm" method to component, rather than have the functionality in "RespondToDoubleClick" 
