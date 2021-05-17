@@ -69,8 +69,6 @@
   <ItemGroup>
     <Compile Include="Components\TaskCardAttributes.cs" />
     <Compile Include="Components\TaskCardComponent.cs" />
-    <Compile Include="Components\TEST.cs" />
-    <Compile Include="Components\TEST_ATTS.cs" />
     <Compile Include="Core\NameServer.cs" />
     <Compile Include="Core\TagServer.cs" />
     <Compile Include="Core\TaskStatus.cs" />
