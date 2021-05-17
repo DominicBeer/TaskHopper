@@ -14,6 +14,7 @@ E.g a task's inputs are other tasks that this task is dependent on the results o
 Aim 2 - create a Kanban board to display the cards for their status vs either owner or tags
 
 Progress Diary
+
 15/05/21
 - Have a test task card attributes working (custom component ui).
 - Next up: flesh out the component to have params and solve instance. Do the data entry form on the component.
