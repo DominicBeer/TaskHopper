@@ -13,6 +13,8 @@ namespace TaskHopper.Components
         /// <summary>
         /// Initializes a new instance of the TaskCardComponent class.
         /// </summary>
+        /// 
+
         public TaskCardComponent()
           : base("TaskCardComponent", "Nickname",
               "Description",

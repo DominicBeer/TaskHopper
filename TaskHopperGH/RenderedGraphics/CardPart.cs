@@ -10,6 +10,7 @@ namespace TaskHopper.RenderedGraphics
 {
     class CardPart
     {
+        const float MaxTextWidth = 90f;
         private Bitmap Icon { get; }
         public SizeF Size { get; }
         public float Width => Size.Width;
@@ -43,7 +44,7 @@ namespace TaskHopper.RenderedGraphics
             }
             if (HasText)
             {
-                width += (float)GH_FontServer.StringWidth(text, Font);
+                width += Math.Min(MaxTextWidth, (float)GH_FontServer.StringWidth(text, Font));
             }
             Size = new SizeF(width, TaskCardConstants.PartHeight);
         }
@@ -82,9 +83,9 @@ namespace TaskHopper.RenderedGraphics
         protected void RenderText(Graphics graphics, RectangleF textBounds)
         {
             StringFormat format = new StringFormat();
-            format.Alignment = StringAlignment.Center;
+            format.Alignment = StringAlignment.Near;
             format.LineAlignment = StringAlignment.Center;
-            format.Trimming = StringTrimming.Character;
+            format.Trimming = StringTrimming.EllipsisWord;
             var brush = new SolidBrush(FontColor);
             graphics.DrawString(Text, Font, brush, textBounds, format);
             brush.Dispose();

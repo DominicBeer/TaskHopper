@@ -81,9 +81,16 @@
     <Compile Include="Forms\EditTaskForm.Designer.cs">
       <DependentUpon>EditTaskForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RemovableTagStrip.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\RemovableTagStrip.Designer.cs">
+      <DependentUpon>RemovableTagStrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Parameters\ParamAttributes.cs" />
     <Compile Include="RenderedGraphics\ButtonCardPart.cs" />
     <Compile Include="RenderedGraphics\CardPart.cs" />
+    <Compile Include="RenderedGraphics\CardPartZone.cs" />
     <Compile Include="RenderedGraphics\TagCardPart.cs" />
     <Compile Include="RenderedGraphics\TaskCard.cs" />
     <Compile Include="RenderedGraphics\TaskCardConstants.cs" />
@@ -117,6 +124,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\EditTaskForm.resx">
       <DependentUpon>EditTaskForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RemovableTagStrip.resx">
+      <DependentUpon>RemovableTagStrip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -8,7 +8,6 @@ namespace TaskHopper
     {
         public TaskHopperGHInfo() : base()
         {
-            var bob = "cheese";
         }
         public override string Name
         {

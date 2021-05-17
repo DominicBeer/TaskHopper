@@ -42,7 +42,7 @@ namespace TaskHopper.Forms
             this.label6 = new System.Windows.Forms.Label();
             this.TagComboBox = new System.Windows.Forms.ComboBox();
             this.AddTagButton = new System.Windows.Forms.Button();
-            this.TagPanel = new System.Windows.Forms.Panel();
+            this.TagLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // NameTextBox
@@ -168,20 +168,25 @@ namespace TaskHopper.Forms
             this.AddTagButton.TabIndex = 5;
             this.AddTagButton.Text = "+";
             this.AddTagButton.UseVisualStyleBackColor = true;
+            this.AddTagButton.Click += new System.EventHandler(this.AddTagButton_Click);
             // 
-            // TagPanel
+            // TagLayoutPanel
             // 
-            this.TagPanel.Location = new System.Drawing.Point(11, 356);
-            this.TagPanel.Name = "TagPanel";
-            this.TagPanel.Size = new System.Drawing.Size(254, 95);
-            this.TagPanel.TabIndex = 6;
+            this.TagLayoutPanel.AutoScroll = true;
+            this.TagLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.TagLayoutPanel.Location = new System.Drawing.Point(11, 358);
+            this.TagLayoutPanel.Name = "TagLayoutPanel";
+            this.TagLayoutPanel.Size = new System.Drawing.Size(253, 148);
+            this.TagLayoutPanel.TabIndex = 6;
+            this.TagLayoutPanel.WrapContents = false;
+            this.TagLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.TagLayoutPanel_Paint);
             // 
             // EditTaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(277, 476);
-            this.Controls.Add(this.TagPanel);
+            this.ClientSize = new System.Drawing.Size(277, 531);
+            this.Controls.Add(this.TagLayoutPanel);
             this.Controls.Add(this.AddTagButton);
             this.Controls.Add(this.DatePicker);
             this.Controls.Add(this.StatusPicker);
@@ -220,6 +225,6 @@ namespace TaskHopper.Forms
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox TagComboBox;
         private System.Windows.Forms.Button AddTagButton;
-        private System.Windows.Forms.Panel TagPanel;
+        private System.Windows.Forms.FlowLayoutPanel TagLayoutPanel;
     }
 }

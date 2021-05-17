@@ -30,6 +30,10 @@ namespace TaskHopper.Forms
             OwnerComboBox.Items.AddRange(ownerSource.ToArray());
             OwnerComboBox.SelectedItem = source.Name;
             TagComboBox.Items.AddRange(tagSource.ToArray());
+            foreach(var tag in source.Tags)
+            {
+                TagLayoutPanel.Controls.Add(new RemovableTagStrip(tag, TagLayoutPanel));
+            }
 
             
 
@@ -89,6 +93,40 @@ namespace TaskHopper.Forms
         private void StatusPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void TagPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void TagLayoutPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void AddTagButton_Click(object sender, EventArgs e)
+        {
+            var tagName = TagComboBox.Text;
+            if (tagName != "")
+            {
+                var alreadyThere = false;
+                foreach(var c in TagLayoutPanel.Controls)
+                {
+                    if(c is RemovableTagStrip r)
+                    {
+                        if(r.TagText == tagName)
+                        {
+                            alreadyThere = true;
+                            break;
+                        }
+                    }
+                }
+                if (!alreadyThere)
+                {
+                    TagLayoutPanel.Controls.Add(new RemovableTagStrip(TagComboBox.Text, TagLayoutPanel));
+                }
+            }
         }
     }
 }
