@@ -29,6 +29,8 @@ namespace TaskHopper.Components
             }
         }
 
+        private TaskCardComponent OwnerNative => (TaskCardComponent) Owner;
+
         public RectangleF CardBounds => new RectangleF(CardPivot, new SizeF(Card.Width, Card.Height));
         
         public TaskCardAttributes(TaskCardComponent owner) : base(owner)
@@ -54,8 +56,7 @@ namespace TaskHopper.Components
             }
             if(CardBounds.Contains(pt))
             {
-                var editForm = new Forms.EditTaskForm(((TaskCardComponent)Owner).SolvedTask, Util.TestData.names, TestData.tags);
-                editForm.ShowDialog();
+                OwnerNative.LaunchEditForm();
                 return GH_ObjectResponse.Handled;
             }
             return base.RespondToMouseDoubleClick(sender, e);

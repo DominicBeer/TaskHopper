@@ -30,6 +30,10 @@ namespace TaskHopper.Core
         public bool IsLate => DateTime.Now.Ticks > Date.Ticks && Status != TaskStatus.Done;
         public string StatusString => Status.AsString();
 
+        /// <summary>
+        /// Constructor for serialization only
+        /// </summary>
+        internal TH_Task() { } 
         public TH_Task(string name, string description, string owner, string link, Color color, DateTime date, TaskStatus status, IEnumerable<string> tags)
         {
             Name = name;
@@ -44,27 +48,27 @@ namespace TaskHopper.Core
 
         public bool Write(GH_IWriter writer)
         {
-            writer.SetString("Name", Name);
-            writer.SetString("Description", Description);
-            writer.SetString("Owner", Owner);
-            writer.SetString("Link", Link);
-            writer.SetDrawingColor("Color", Color);
-            writer.SetDate("Date", Date);
-            writer.SetInt32("Status", (int)Status);
-            writer.SetEnumerable("Tags", _tags, WriteString);
+            writer.SetString("tName", Name);
+            writer.SetString("tDescription", Description);
+            writer.SetString("tOwner", Owner);
+            writer.SetString("tLink", Link);
+            writer.SetDrawingColor("tColor", Color);
+            writer.SetDate("tDate", Date);
+            writer.SetInt32("tStatus", (int)Status);
+            writer.SetEnumerable("tTags", _tags, WriteString);
             return true;
         }
 
         public bool Read(GH_IReader reader)
         {
-            Name = reader.GetString("Name");
-            Description = reader.GetString("Description");
-            Owner = reader.GetString("Owner");
-            Link = reader.GetString("Link");
-            Color = reader.GetDrawingColor("Color");
-            Date = reader.GetDate("Date");
-            Status = (TaskStatus)reader.GetInt32("Status");
-            _tags = new ImmutableHashSet<string>(reader.GetEnumerable("Tags",ReadString));
+            Name = reader.GetString("tName");
+            Description = reader.GetString("tDescription");
+            Owner = reader.GetString("tOwner");
+            Link = reader.GetString("tLink");
+            Color = reader.GetDrawingColor("tColor");
+            Date = reader.GetDate("tDate");
+            Status = (TaskStatus)reader.GetInt32("tStatus");
+            _tags = new ImmutableHashSet<string>(reader.GetEnumerable("tTags",ReadString));
             return true;
         }
     }

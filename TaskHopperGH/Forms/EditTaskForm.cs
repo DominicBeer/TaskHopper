@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TaskHopper.Core;
+using TaskHopper.Components;
 
 namespace TaskHopper.Forms
 {
@@ -16,30 +17,54 @@ namespace TaskHopper.Forms
         private TH_Task Source;
         private List<string> OwnerSource;
         private List<string> TagSource;
-        public EditTaskForm(TH_Task source, IEnumerable<string> ownerSource, IEnumerable<string> tagSource)
+        private TaskCardComponent Component;
+        public EditTaskForm(TH_Task source, IEnumerable<string> ownerSource, IEnumerable<string> tagSource, TaskCardComponent component)
         {
             OwnerSource = ownerSource.ToList();
             TagSource = tagSource.ToList();
             Source = source;
+            Component = component;
             InitializeComponent();
             NameTextBox.Text = source.Name;
             DescriptionTextBox.Text = source.Description;
             DatePicker.Value = source.Date;
+            LinkTextBox.Text = source.Link;
             StatusPicker.Items.AddRange(TaskStatusWriter.All);
             StatusPicker.SelectedItem = new TaskStatusWriter(source.Status);
             OwnerComboBox.Items.AddRange(ownerSource.ToArray());
-            OwnerComboBox.SelectedItem = source.Name;
+
+            OwnerComboBox.SelectedItem = source.Owner;
             TagComboBox.Items.AddRange(tagSource.ToArray());
             foreach(var tag in source.Tags)
             {
                 TagLayoutPanel.Controls.Add(new RemovableTagStrip(tag, TagLayoutPanel));
             }
 
-            
+            this.FormClosing += ReturnUserData;
 
+    
         }
 
-         
+        private void ReturnUserData(object sender, FormClosingEventArgs e)
+        {
+            var name = NameTextBox.Text;
+            var description = DescriptionTextBox.Text;
+            var owner = OwnerComboBox.Text;
+            var link = LinkTextBox.Text;
+            var date = DatePicker.Value;
+            var status = ((TaskStatusWriter)StatusPicker.SelectedItem).Status;
+            var tags = new HashSet<string>();
+            foreach(var ctrl in TagLayoutPanel.Controls)
+            {
+                if(ctrl is RemovableTagStrip ts)
+                {
+                    tags.Add(ts.TagText);
+                }
+            }
+            var returnTask = new TH_Task(name, description, owner, link, Source.Color, date, status, tags);
+            Component.SetTask(returnTask);
+        }
+
         private void EditTaskForm_Load(object sender, EventArgs e)
         {
 
@@ -127,6 +152,11 @@ namespace TaskHopper.Forms
                     TagLayoutPanel.Controls.Add(new RemovableTagStrip(TagComboBox.Text, TagLayoutPanel));
                 }
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

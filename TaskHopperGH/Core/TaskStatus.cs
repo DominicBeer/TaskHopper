@@ -32,7 +32,7 @@ namespace TaskHopper.Core
 
     class TaskStatusWriter
     {
-        TaskStatus Status;
+        public readonly TaskStatus Status;
 
         public TaskStatusWriter(TaskStatus status)
         {

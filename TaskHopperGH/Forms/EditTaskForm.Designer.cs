@@ -43,6 +43,8 @@ namespace TaskHopper.Forms
             this.TagComboBox = new System.Windows.Forms.ComboBox();
             this.AddTagButton = new System.Windows.Forms.Button();
             this.TagLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.LinkTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // NameTextBox
@@ -50,7 +52,7 @@ namespace TaskHopper.Forms
             this.NameTextBox.Location = new System.Drawing.Point(10, 26);
             this.NameTextBox.Multiline = true;
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(256, 47);
+            this.NameTextBox.Size = new System.Drawing.Size(306, 47);
             this.NameTextBox.TabIndex = 0;
             this.NameTextBox.TextChanged += new System.EventHandler(this.NameTextBox_TextChanged);
             // 
@@ -59,7 +61,7 @@ namespace TaskHopper.Forms
             this.DescriptionTextBox.Location = new System.Drawing.Point(10, 96);
             this.DescriptionTextBox.Multiline = true;
             this.DescriptionTextBox.Name = "DescriptionTextBox";
-            this.DescriptionTextBox.Size = new System.Drawing.Size(255, 73);
+            this.DescriptionTextBox.Size = new System.Drawing.Size(306, 73);
             this.DescriptionTextBox.TabIndex = 1;
             this.DescriptionTextBox.TextChanged += new System.EventHandler(this.DescriptionTextBox_TextChanged);
             // 
@@ -88,7 +90,7 @@ namespace TaskHopper.Forms
             this.OwnerComboBox.FormattingEnabled = true;
             this.OwnerComboBox.Location = new System.Drawing.Point(10, 193);
             this.OwnerComboBox.Name = "OwnerComboBox";
-            this.OwnerComboBox.Size = new System.Drawing.Size(256, 21);
+            this.OwnerComboBox.Size = new System.Drawing.Size(306, 21);
             this.OwnerComboBox.TabIndex = 3;
             this.OwnerComboBox.SelectedIndexChanged += new System.EventHandler(this.OwnerComboBox_SelectedIndexChanged);
             // 
@@ -103,7 +105,7 @@ namespace TaskHopper.Forms
             // 
             // DatePicker
             // 
-            this.DatePicker.Location = new System.Drawing.Point(101, 274);
+            this.DatePicker.Location = new System.Drawing.Point(150, 341);
             this.DatePicker.Name = "DatePicker";
             this.DatePicker.Size = new System.Drawing.Size(166, 20);
             this.DatePicker.TabIndex = 4;
@@ -112,7 +114,7 @@ namespace TaskHopper.Forms
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 277);
+            this.label4.Location = new System.Drawing.Point(8, 347);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 2;
@@ -134,7 +136,7 @@ namespace TaskHopper.Forms
             this.StatusPicker.FormattingEnabled = true;
             this.StatusPicker.Location = new System.Drawing.Point(10, 242);
             this.StatusPicker.Name = "StatusPicker";
-            this.StatusPicker.Size = new System.Drawing.Size(256, 21);
+            this.StatusPicker.Size = new System.Drawing.Size(306, 21);
             this.StatusPicker.TabIndex = 3;
             this.StatusPicker.TabStop = false;
             this.StatusPicker.SelectedIndexChanged += new System.EventHandler(this.StatusPicker_SelectedIndexChanged);
@@ -142,7 +144,7 @@ namespace TaskHopper.Forms
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 310);
+            this.label6.Location = new System.Drawing.Point(7, 376);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 13);
             this.label6.TabIndex = 2;
@@ -153,16 +155,16 @@ namespace TaskHopper.Forms
             // 
             this.TagComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TagComboBox.FormattingEnabled = true;
-            this.TagComboBox.Location = new System.Drawing.Point(10, 331);
+            this.TagComboBox.Location = new System.Drawing.Point(10, 397);
             this.TagComboBox.Name = "TagComboBox";
-            this.TagComboBox.Size = new System.Drawing.Size(221, 21);
+            this.TagComboBox.Size = new System.Drawing.Size(170, 21);
             this.TagComboBox.TabIndex = 3;
             this.TagComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // AddTagButton
             // 
             this.AddTagButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddTagButton.Location = new System.Drawing.Point(237, 331);
+            this.AddTagButton.Location = new System.Drawing.Point(186, 396);
             this.AddTagButton.Name = "AddTagButton";
             this.AddTagButton.Size = new System.Drawing.Size(29, 21);
             this.AddTagButton.TabIndex = 5;
@@ -174,18 +176,38 @@ namespace TaskHopper.Forms
             // 
             this.TagLayoutPanel.AutoScroll = true;
             this.TagLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.TagLayoutPanel.Location = new System.Drawing.Point(11, 358);
+            this.TagLayoutPanel.Location = new System.Drawing.Point(11, 424);
             this.TagLayoutPanel.Name = "TagLayoutPanel";
-            this.TagLayoutPanel.Size = new System.Drawing.Size(253, 148);
+            this.TagLayoutPanel.Size = new System.Drawing.Size(305, 148);
             this.TagLayoutPanel.TabIndex = 6;
             this.TagLayoutPanel.WrapContents = false;
             this.TagLayoutPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.TagLayoutPanel_Paint);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 275);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(30, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Link:";
+            this.label7.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // LinkTextBox
+            // 
+            this.LinkTextBox.Location = new System.Drawing.Point(10, 296);
+            this.LinkTextBox.Multiline = true;
+            this.LinkTextBox.Name = "LinkTextBox";
+            this.LinkTextBox.Size = new System.Drawing.Size(306, 33);
+            this.LinkTextBox.TabIndex = 7;
+            this.LinkTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // EditTaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(277, 531);
+            this.ClientSize = new System.Drawing.Size(328, 584);
+            this.Controls.Add(this.LinkTextBox);
             this.Controls.Add(this.TagLayoutPanel);
             this.Controls.Add(this.AddTagButton);
             this.Controls.Add(this.DatePicker);
@@ -197,6 +219,7 @@ namespace TaskHopper.Forms
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DescriptionTextBox);
             this.Controls.Add(this.NameTextBox);
@@ -226,5 +249,7 @@ namespace TaskHopper.Forms
         private System.Windows.Forms.ComboBox TagComboBox;
         private System.Windows.Forms.Button AddTagButton;
         private System.Windows.Forms.FlowLayoutPanel TagLayoutPanel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox LinkTextBox;
     }
 }

@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="TaskHopperGHInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\GH_Task.cs" />
     <Compile Include="Util\ColorTransforms.cs" />
     <Compile Include="Util\ExtMethods.cs" />
     <Compile Include="Util\Functional.cs" />
@@ -116,9 +117,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Types\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Forms\EditTaskForm.resx">
       <DependentUpon>EditTaskForm.cs</DependentUpon>

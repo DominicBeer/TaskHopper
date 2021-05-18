@@ -4,7 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using TaskHopper.Core;
+using System.Linq;
 using TaskHopper.Parameters;
+using TaskHopper.Util;
+using GH_IO.Serialization;
 
 namespace TaskHopper.Components
 {
@@ -22,7 +25,7 @@ namespace TaskHopper.Components
         {
             
             var tags = new List<string>() { "Test", "Will It Work??","Probably Not" };
-            SolvedTask = new TH_Task(
+            InternalTask = new TH_Task(
                 "A really really really long name, far too long, silly in fact",
                 "Some really boring task, sorry but you're not going to enjoy, better start grinding",
                 "Dom Beer",
@@ -31,17 +34,28 @@ namespace TaskHopper.Components
                 new DateTime(2021, 5, 25),
                 TaskStatus.InProgress,
                 tags);
+            SolvedTask = InternalTask;
             Attributes = new TaskCardAttributes(this); 
         }
 
-        public TH_Task SolvedTask { get; }
+        public TH_Task SolvedTask { get; private set; }
+        internal TH_Task InternalTask { get; private set; }
+        public  void SetTask(TH_Task task)
+        {
+            InternalTask = task;
+            ExpireSolution(true);
+            var newAtts = new TaskCardAttributes(this);
+            newAtts.Pivot = Attributes.Pivot;
+            OnDisplayExpired(true);
+        }
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("", "", "Card", GH_ParamAccess.list);
-
+            var param = this.Params.Input[0];
+            param.Optional = true;
 
         }
 
@@ -60,6 +74,8 @@ namespace TaskHopper.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            //TO DO actually implement this - not really a solution.
+            SolvedTask = InternalTask;
         }
 
         /// <summary>
@@ -75,12 +91,46 @@ namespace TaskHopper.Components
             }
         }
 
+        internal void LaunchEditForm()
+        {
+            var tuple = ScrapeOwnersAndTags();  
+            var editForm = new Forms.EditTaskForm(InternalTask, tuple.names, tuple.tags, this);
+            editForm.ShowDialog();
+        }
+
+        private (List<string> tags, List<string> names) ScrapeOwnersAndTags()
+        {
+            var doc = this.OnPingDocument();
+            var cards = doc.Objects
+                .Where(obj => obj is TaskCardComponent)
+                .Select(obj => (TaskCardComponent)obj);
+            var tags = new HashSet<string>(cards
+                .Select(card => card.InternalTask.Tags)
+                .SelectMany(x => x));
+            var names = new HashSet<string>(cards
+                .Select(card => card.InternalTask.Owner));
+            return (tags.ToList(), names.ToList());
+        }
         /// <summary>
         /// Gets the unique ID for this component. Do not change this ID after release.
         /// </summary>
         public override Guid ComponentGuid
         {
             get { return new Guid("a76203c9-68a8-4f2a-a559-53c728fa5d15"); }
+        }
+
+        public override bool Read(GH_IReader reader)
+        {
+            InternalTask = new TH_Task();
+            InternalTask.Read(reader);
+            SolvedTask = InternalTask;
+            return base.Read(reader);
+        }
+
+        public override bool Write(GH_IWriter writer)
+        {
+            InternalTask.Write(writer);
+            return base.Write(writer);
         }
     }
 }
