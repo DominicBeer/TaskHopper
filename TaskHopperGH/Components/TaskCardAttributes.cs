@@ -11,6 +11,7 @@ using Grasshopper.Kernel.Attributes;
 using TaskHopper.RenderedGraphics;
 using System.Windows.Forms;
 using TaskHopper.Util;
+using TaskHopper.Core;
 
 namespace TaskHopper.Components
 {
@@ -35,8 +36,14 @@ namespace TaskHopper.Components
         
         public TaskCardAttributes(TaskCardComponent owner) : base(owner)
         {
-            Card = new TaskCard(owner.SolvedTask, Pivot);
+            UpdateCard(owner.SolvedTask);
         }
+
+        internal void UpdateCard(TH_Task task)
+        {
+            Card = new TaskCard(task, Pivot);
+        }
+
         public TaskCard Card { get; private set; }
         public override RectangleF Bounds 
         { 
@@ -144,6 +151,7 @@ namespace TaskHopper.Components
             if (channel == GH_CanvasChannel.Wires)
             {
                 var inAtts =  Owner.Params.Input[0].Attributes;
+                inAtts.Selected = this.Selected;
                 inAtts.RenderToCanvas(canvas, channel);
             }
             if (channel == GH_CanvasChannel.Objects)

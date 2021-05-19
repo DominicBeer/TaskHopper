@@ -43,9 +43,9 @@ namespace TaskHopper.Components
         public  void SetTask(TH_Task task)
         {
             InternalTask = task;
+            ((TaskCardAttributes)Attributes).UpdateCard(InternalTask);
             ExpireSolution(true);
-            var newAtts = new TaskCardAttributes(this);
-            newAtts.Pivot = Attributes.Pivot;
+           
             OnDisplayExpired(true);
         }
         /// <summary>
@@ -76,6 +76,7 @@ namespace TaskHopper.Components
         {
             //TO DO actually implement this - not really a solution.
             SolvedTask = InternalTask;
+            ((TaskCardAttributes)Attributes).UpdateCard(SolvedTask);
         }
 
         /// <summary>
