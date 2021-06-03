@@ -25,3 +25,11 @@ Next up
 - refactor tag adding mechanism to single control
 - Implement tag scraping mechanism
 - Add "OpenEditForm" method to component, rather than have the functionality in "RespondToDoubleClick" 
+
+18/05/21
+- Form now applies changes to task when closed.
+- Implement tag and owner name scraping when the task is opened.
+- Fixed a few bugs
+Next Up
+- Implement ability to edit color of task.
+- Do internal expired logic
