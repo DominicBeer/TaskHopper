@@ -154,6 +154,8 @@ namespace TaskHopper.Components
                 inAtts.Selected = this.Selected;
                 inAtts.RenderToCanvas(canvas, channel);
             }
+
+
             if (channel == GH_CanvasChannel.Objects)
             {
                 GH_Capsule capsule = GH_Capsule.CreateCapsule(Bounds, GH_Palette.Normal);

@@ -19,7 +19,7 @@ namespace TaskHopper.Forms
         public RemovableTagStrip(string tag, FlowLayoutPanel host)
         {
             InitializeComponent();
-            TagPart = new TagCardPart(tag);
+            TagPart = new TagCardPart(tag,160f);
             TagPart.Pivot = new PointF(2, 2);
             Host = host;
             TagText = tag;

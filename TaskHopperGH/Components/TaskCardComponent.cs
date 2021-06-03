@@ -8,6 +8,9 @@ using System.Linq;
 using TaskHopper.Parameters;
 using TaskHopper.Util;
 using GH_IO.Serialization;
+using System.Windows.Forms;
+using Grasshopper.GUI;
+using Grasshopper.GUI.Base;
 
 namespace TaskHopper.Components
 {
@@ -118,6 +121,13 @@ namespace TaskHopper.Components
         public override Guid ComponentGuid
         {
             get { return new Guid("a76203c9-68a8-4f2a-a559-53c728fa5d15"); }
+        }
+
+
+        private void SetColor(Color color)
+        {
+            var newTask = InternalTask.ChagneColor(color);
+            SetTask(newTask);
         }
 
         public override bool Read(GH_IReader reader)

@@ -43,6 +43,9 @@
       <HintPath>..\packages\Grasshopper.6.0.18016.23451\lib\net45\GH_IO.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="GH_Util">
+      <HintPath>..\..\..\..\..\..\Program Files\Rhino 7\Plug-ins\Grasshopper\GH_Util.dll</HintPath>
+    </Reference>
     <Reference Include="Grasshopper, Version=6.0.18016.23451, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
       <HintPath>..\packages\Grasshopper.6.0.18016.23451\lib\net45\Grasshopper.dll</HintPath>
       <Private>False</Private>
@@ -67,12 +70,32 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CanvasControls\CanvasButton.cs" />
+    <Compile Include="CanvasControls\CanvasControl.cs" />
+    <Compile Include="CanvasControls\CanvasControlHost.cs" />
+    <Compile Include="CanvasControls\CardLabel.cs" />
+    <Compile Include="CanvasControls\ControlLibrary.cs" />
+    <Compile Include="CanvasControls\FlowLayoutCanvasControlHost.cs" />
+    <Compile Include="CanvasControls\IconButton.cs" />
+    <Compile Include="CanvasControls\Separator.cs" />
+    <Compile Include="CanvasControls\TagLabel.cs" />
+    <Compile Include="CanvasControls\TaskCardHost.cs" />
+    <Compile Include="CanvasControls\TaskCardLabelHost.cs" />
     <Compile Include="Components\TaskCardAttributes.cs" />
     <Compile Include="Components\TaskCardComponent.cs" />
+    <Compile Include="Constants\TH_Colors.cs" />
+    <Compile Include="Constants\TH_Dimensions.cs" />
+    <Compile Include="Constants\TH_Fonts.cs" />
     <Compile Include="Core\NameServer.cs" />
-    <Compile Include="Core\TagServer.cs" />
+    <Compile Include="Core\Servers.cs" />
     <Compile Include="Core\TaskStatus.cs" />
     <Compile Include="Core\TH_Task.cs" />
+    <Compile Include="Forms\MenuTagControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\MenuTagControl.Designer.cs">
+      <DependentUpon>MenuTagControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditTaskForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,7 +140,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\AnIcon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\EditTaskForm.resx">
       <DependentUpon>EditTaskForm.cs</DependentUpon>

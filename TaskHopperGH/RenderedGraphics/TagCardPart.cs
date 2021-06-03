@@ -15,8 +15,11 @@ namespace TaskHopper.RenderedGraphics
             : base(null, text, TaskCardConstants.OffBlack, gap)
         {
         }
+        public TagCardPart(string text, float maxTextWidth)
+            : base(null, text, TaskCardConstants.OffBlack, gap,maxTextWidth)
+        {
+        }
 
-        
         PointF[] GetTagBorder()
         { 
             var h = TaskCardConstants.PartHeight;

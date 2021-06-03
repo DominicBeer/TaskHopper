@@ -10,7 +10,7 @@ namespace TaskHopper.RenderedGraphics
 {
     class CardPart
     {
-        const float MaxTextWidth = 90f;
+        float MaxTextWidth = 110f;
         private Bitmap Icon { get; }
         public SizeF Size { get; }
         public float Width => Size.Width;
@@ -25,12 +25,15 @@ namespace TaskHopper.RenderedGraphics
         private bool HasText => Text != "" || Text != null;
 
         public PointF Pivot { get; set; }
-        public CardPart( Bitmap icon, string text, Color fontColor, float extraWidth)
+
+        
+        public CardPart( Bitmap icon, string text, Color fontColor, float extraWidth, float maxTextWidth)
         {
             Icon = icon;
             Text = text;
             Font = TaskCardConstants.PartFont;
             FontColor = fontColor;
+            MaxTextWidth = maxTextWidth;
 
             float width = extraWidth;
 
@@ -48,6 +51,9 @@ namespace TaskHopper.RenderedGraphics
             }
             Size = new SizeF(width, TaskCardConstants.PartHeight);
         }
+
+        public CardPart(Bitmap icon, string text, Color fontColor, float extraWidth) 
+            : this(icon, text, fontColor, extraWidth, 110f){ }
 
         public CardPart(Bitmap icon, string text, Color fontColor) 
             : this(icon, text, fontColor, 0f) { }

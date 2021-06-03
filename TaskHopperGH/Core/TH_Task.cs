@@ -30,6 +30,13 @@ namespace TaskHopper.Core
         public bool IsLate => DateTime.Now.Ticks > Date.Ticks && Status != TaskStatus.Done;
         public string StatusString => Status.AsString();
 
+        public TH_Task ChagneColor(Color color)
+        {
+            var outTask = (TH_Task)this.MemberwiseClone();
+            outTask.Color = color;
+            return outTask;
+        }
+
         /// <summary>
         /// Constructor for serialization only
         /// </summary>

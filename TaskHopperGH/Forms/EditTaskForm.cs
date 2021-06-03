@@ -32,7 +32,7 @@ namespace TaskHopper.Forms
             StatusPicker.Items.AddRange(TaskStatusWriter.All);
             StatusPicker.SelectedItem = new TaskStatusWriter(source.Status);
             OwnerComboBox.Items.AddRange(ownerSource.ToArray());
-
+            ColourPicker.Colour = source.Color;
             OwnerComboBox.SelectedItem = source.Owner;
             TagComboBox.Items.AddRange(tagSource.ToArray());
             foreach(var tag in source.Tags)
@@ -54,6 +54,7 @@ namespace TaskHopper.Forms
             var date = DatePicker.Value;
             var status = ((TaskStatusWriter)StatusPicker.SelectedItem).Status;
             var tags = new HashSet<string>();
+            var color = ColourPicker.Colour;
             foreach(var ctrl in TagLayoutPanel.Controls)
             {
                 if(ctrl is RemovableTagStrip ts)
@@ -61,7 +62,7 @@ namespace TaskHopper.Forms
                     tags.Add(ts.TagText);
                 }
             }
-            var returnTask = new TH_Task(name, description, owner, link, Source.Color, date, status, tags);
+            var returnTask = new TH_Task(name, description, owner, link, color, date, status, tags);
             Component.SetTask(returnTask);
         }
 
@@ -155,6 +156,11 @@ namespace TaskHopper.Forms
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gH_ColourPicker1_Load(object sender, EventArgs e)
         {
 
         }

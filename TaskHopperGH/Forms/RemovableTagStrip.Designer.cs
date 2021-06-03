@@ -35,7 +35,7 @@ namespace TaskHopper.Forms
             // RemoveBtn
             // 
             this.RemoveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RemoveBtn.Location = new System.Drawing.Point(186, 0);
+            this.RemoveBtn.Location = new System.Drawing.Point(162, 0);
             this.RemoveBtn.Name = "RemoveBtn";
             this.RemoveBtn.Size = new System.Drawing.Size(33, 21);
             this.RemoveBtn.TabIndex = 0;
@@ -49,7 +49,7 @@ namespace TaskHopper.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.RemoveBtn);
             this.Name = "RemovableTagStrip";
-            this.Size = new System.Drawing.Size(222, 21);
+            this.Size = new System.Drawing.Size(198, 21);
             this.Load += new System.EventHandler(this.TagCard_Load);
             this.ResumeLayout(false);
 
