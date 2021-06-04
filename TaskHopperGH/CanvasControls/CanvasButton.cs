@@ -21,10 +21,10 @@ namespace TaskHopper.CanvasControls
         Action OnClick;
         Action OnDoubleClick;
 
-        protected CanvasButton(CanvasControlHost host, Action onClick, Action onDoubleClick) : base(host)
+        protected CanvasButton(CanvasControl host, Action onClick) : base(host)
         {
             OnClick = onClick;
-            OnDoubleClick = onDoubleClick;
+            OnDoubleClick = onClick;
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace TaskHopper.CanvasControls
         /// <returns></returns>
         protected virtual bool OnButton(PointF pt)
         {
-            return (new RectangleF(Pivot, Size)).Contains(pt);
+            return Bounds.Contains(pt);
         }
 
         public override void RenderAt(PointF pivot, Graphics graphics)

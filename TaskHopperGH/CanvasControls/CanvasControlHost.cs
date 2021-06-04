@@ -41,6 +41,8 @@ namespace TaskHopper.CanvasControls
 
         public override void RenderAt(PointF pivot, Graphics graphics)
         {
+            Pivot = pivot;
+            RenderBase(graphics);
             SubControls.ForEach(s => s.subControl.RenderAt(pivot + s.relPivot, graphics));
         }
 

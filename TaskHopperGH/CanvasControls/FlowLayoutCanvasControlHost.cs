@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TaskHopper.CanvasControls
 {
-    abstract class FlowLayoutCanvasControlHost : CanvasControlHost
+    class FlowLayoutCanvasControlHost : CanvasControlHost
     {
         float Width;
         float PaddingH;
@@ -38,6 +38,7 @@ namespace TaskHopper.CanvasControls
             includeSeparators = true;
             sThk = separatorRef.Thk;
             sColor = separatorRef.Color;
+            Layout();
         }
 
         public void AddControl(CanvasControl control)
@@ -77,8 +78,13 @@ namespace TaskHopper.CanvasControls
                 }
             }
             newControls.Add((SubControls.Last().subControl, piv));
+            Size = new SizeF(Width, piv.Height + height + PaddingV);
             SubControls = newControls;
         }
 
+        protected override void RenderBase(Graphics graphics)
+        {
+            //Doesn't do any base rendering
+        }
     }
 }

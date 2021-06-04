@@ -14,19 +14,19 @@ namespace TaskHopper.CanvasControls
         float PaddingV;
 
         public IconButton(
-            CanvasControlHost host,
+            CanvasControl host,
             Image icon,
             Action onClick,
-            Action onDoubleClick,
             float height = 12f, 
-            float paddingH = 1f, 
+            float paddingH = 2f, 
             float paddingV = 1f ) 
-            : base(host, onClick, onDoubleClick)
+            : base(host, onClick)
         {
             var width = height / icon.Height * icon.Width;
             PaddingH = paddingH;
             PaddingV = paddingV;
             Size = new SizeF(width + 2 * PaddingH, height + 2 * PaddingV);
+            Icon = icon;
         }
 
         protected override void RenderBase(Graphics graphics)

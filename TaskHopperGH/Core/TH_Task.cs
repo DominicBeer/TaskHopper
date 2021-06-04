@@ -11,6 +11,7 @@ using TaskHopper.Util.Serialization;
 using static TaskHopper.Util.Serialization.GetSetDelegates;
 using System.Diagnostics;
 using System.Windows.Forms;
+using TaskHopper.Components;
 
 namespace TaskHopper.Core
 {
@@ -24,24 +25,31 @@ namespace TaskHopper.Core
         public Color Color { get; private set; }
         public DateTime Date { get; private set; }
         public TaskStatus Status { get; private set; }
+        public TaskStatus StatusIn { get; private set; }
+        internal TaskCardComponent Source { get;  set; }
 
         private ImmutableHashSet<string> _tags;
 
         public bool IsLate => DateTime.Now.Ticks > Date.Ticks && Status != TaskStatus.Done;
         public string StatusString => Status.AsString();
 
-        public TH_Task ChagneColor(Color color)
+        public TH_Task ChangeColor(Color color)
         {
             var outTask = (TH_Task)this.MemberwiseClone();
             outTask.Color = color;
             return outTask;
         }
-
+        public TH_Task SetStatusIn(TaskStatus status)
+        {
+            var outTask = (TH_Task)this.MemberwiseClone();
+            outTask.StatusIn = status;
+            return outTask;
+        }
         /// <summary>
         /// Constructor for serialization only
         /// </summary>
         internal TH_Task() { } 
-        public TH_Task(string name, string description, string owner, string link, Color color, DateTime date, TaskStatus status, IEnumerable<string> tags)
+        public TH_Task(string name, string description, string owner, string link, Color color, DateTime date, TaskStatus status, IEnumerable<string> tags, TaskCardComponent source)
         {
             Name = name;
             Description = description;
@@ -50,6 +58,8 @@ namespace TaskHopper.Core
             Color = color;
             Date = date;
             Status = status;
+            StatusIn = status;
+            Source = source;
             _tags = new ImmutableHashSet<string>(tags);
         }
 
@@ -75,6 +85,7 @@ namespace TaskHopper.Core
             Color = reader.GetDrawingColor("tColor");
             Date = reader.GetDate("tDate");
             Status = (TaskStatus)reader.GetInt32("tStatus");
+            StatusIn = Status;
             _tags = new ImmutableHashSet<string>(reader.GetEnumerable("tTags",ReadString));
             return true;
         }

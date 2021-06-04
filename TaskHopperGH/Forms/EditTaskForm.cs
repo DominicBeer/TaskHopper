@@ -62,7 +62,7 @@ namespace TaskHopper.Forms
                     tags.Add(ts.TagText);
                 }
             }
-            var returnTask = new TH_Task(name, description, owner, link, color, date, status, tags);
+            var returnTask = new TH_Task(name, description, owner, link, color, date, status, tags, Source.Source);
             Component.SetTask(returnTask);
         }
 

@@ -11,6 +11,8 @@ using GH_IO.Serialization;
 using System.Windows.Forms;
 using Grasshopper.GUI;
 using Grasshopper.GUI.Base;
+using TaskHopper.CanvasControls;
+using Grasshopper.Kernel.Types;
 
 namespace TaskHopper.Components
 {
@@ -36,9 +38,10 @@ namespace TaskHopper.Components
                 Color.LawnGreen,
                 new DateTime(2021, 5, 25),
                 TaskStatus.InProgress,
-                tags);
+                tags,
+                this);
             SolvedTask = InternalTask;
-            Attributes = new TaskCardAttributes(this); 
+            Attributes = CanvasControlAttributes.TaskCardAttributes(this,InternalTask); 
         }
 
         public TH_Task SolvedTask { get; private set; }
@@ -46,17 +49,23 @@ namespace TaskHopper.Components
         public  void SetTask(TH_Task task)
         {
             InternalTask = task;
-            ((TaskCardAttributes)Attributes).UpdateCard(InternalTask);
+            UpdateAttributeTask();
             ExpireSolution(true);
-           
+
             OnDisplayExpired(true);
         }
+
+        private void UpdateAttributeTask()
+        {
+            ((CanvasControlAttributes)Attributes).UpdateControl(new TaskCardControl(this.Attributes, InternalTask));
+        }
+
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("", "", "Card", GH_ParamAccess.list);
+            pManager.AddGenericParameter("", "", "Card", GH_ParamAccess.tree);
             var param = this.Params.Input[0];
             param.Optional = true;
 
@@ -77,9 +86,22 @@ namespace TaskHopper.Components
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            //TO DO actually implement this - not really a solution.
-            SolvedTask = InternalTask;
-            ((TaskCardAttributes)Attributes).UpdateCard(SolvedTask);
+            Grasshopper.Kernel.Data.GH_Structure<IGH_Goo> tree;
+            DA.GetDataTree(0, out tree);
+            var statsIn = tree.Where(goo => goo is TH_Task_Goo).Select(goo => (int)((TH_Task_Goo)goo).Value.Status);
+            if (statsIn.Count() != 0)
+            {
+                var statusIn = (TaskStatus)statsIn.Min();
+                InternalTask = InternalTask.SetStatusIn(statusIn);
+                UpdateAttributeTask();
+            }
+            else
+            {
+                InternalTask = InternalTask.SetStatusIn(InternalTask.Status);
+                UpdateAttributeTask();
+            }
+            
+            DA.SetData(0, new TH_Task_Goo(InternalTask));
         }
 
         /// <summary>
@@ -126,7 +148,7 @@ namespace TaskHopper.Components
 
         private void SetColor(Color color)
         {
-            var newTask = InternalTask.ChagneColor(color);
+            var newTask = InternalTask.ChangeColor(color);
             SetTask(newTask);
         }
 
@@ -134,8 +156,11 @@ namespace TaskHopper.Components
         {
             InternalTask = new TH_Task();
             InternalTask.Read(reader);
+            InternalTask.Source = this;
             SolvedTask = InternalTask;
-            return base.Read(reader);
+            base.Read(reader);
+            UpdateAttributeTask();
+            return true;
         }
 
         public override bool Write(GH_IWriter writer)

@@ -17,8 +17,7 @@ namespace TaskHopper.CanvasControls
         float PaddingV;
         float TextWidth;
         float TextAdjustV;
-        Color FontColor = Color.Black;
-        float Inset = 2f;
+        float Inset = TagBrushes.Inset;
 
         public TagLabel(
             CanvasControl host,
@@ -26,7 +25,7 @@ namespace TaskHopper.CanvasControls
             Font font,
             float height,
             float maxTextWidth,
-            float paddingH = 1f,
+            float paddingH = 2f,
             float paddingV = 1f,
             float textAdjustV = 0f
             ) : base(host)
@@ -39,7 +38,7 @@ namespace TaskHopper.CanvasControls
 
             var textSize = TextRenderer.MeasureText(text, font);
             TextWidth = Math.Min(maxTextWidth, textSize.Width);
-            var totalWidth = height/2 + TextWidth + paddingH + Inset/2;
+            var totalWidth = height/2 + TextWidth + 2*paddingH + Inset/2;
 
             Size = new SizeF(totalWidth, height + 2 * paddingV);
 
@@ -47,17 +46,18 @@ namespace TaskHopper.CanvasControls
 
         PointF[] GetTagBorder()
         {
-            var s = Size.Height / 3;
+            var s = Size.Height / 2.5f;
             var p = Inset;
+            var h = PaddingH;
             SizeF[] border = {
                 new SizeF(s,p),
-                new SizeF(Size.Width - p , p),
-                new SizeF(Size.Width - p ,Size.Height - p),
+                new SizeF(Size.Width - 2*h - p , p),
+                new SizeF(Size.Width - 2*h - p ,Size.Height - p),
                 new SizeF(s,Size.Height - p ),
-                new SizeF(p ,Size.Height - p/2 -s),
-                new SizeF(p,s - p/2)};
+                new SizeF(p ,0.6f*Size.Height),
+                new SizeF(p, 0.4f*Size.Height)};
 
-            return border.Select(vector => Pivot + vector).ToArray();
+            return border.Select(vector => Pivot + vector + new SizeF(h,0)).ToArray();
         }
 
         protected override void RenderBase(Graphics graphics)
@@ -70,34 +70,20 @@ namespace TaskHopper.CanvasControls
         private void RenderTag(Graphics graphics)
         {
             var border = GetTagBorder();
+            graphics.DrawPolygon(TagBrushes.BorderPen, border);
+            graphics.DrawPolygon(TagBrushes.InnerPen, border);
+            graphics.FillPolygon(TagBrushes.InnerBrush, border);
 
-            Pen borderPen = new Pen(TagEdge);
-            borderPen.Width = 2 * Inset;
-            borderPen.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
-            graphics.DrawPolygon(borderPen, border);
-            borderPen.Dispose();
-
-            Brush innerBrush = new SolidBrush(TagBack);
-            Pen innerPen = new Pen(innerBrush);
-            innerPen.Width = Inset;
-            innerPen.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
-            graphics.DrawPolygon(innerPen, border);
-            graphics.FillPolygon(innerBrush, border);
-            innerBrush.Dispose();
-            innerPen.Dispose();
-
-            Brush holeBrush = new SolidBrush(TagEdge);
-            var holeX = Pivot.X + Size.Height / 3 - Inset / 2;
+            var holeX = Pivot.X + Size.Height / 3 - Inset / 2 + PaddingH;
             var holeY = Pivot.Y + Size.Height / 2 - Inset / 2;
             var hole = new RectangleF(holeX, holeY, Inset, Inset);
-            graphics.FillEllipse(holeBrush, hole);
-            holeBrush.Dispose();
+            graphics.FillEllipse(TagBrushes.HoleBrush, hole);
         }
 
         private void RenderText(Graphics graphics)
         {
             var textBounds = new RectangleF(
-                            Pivot.X + Size.Height/2,
+                            Pivot.X + Size.Height/2 + PaddingH,
                             Pivot.Y + PaddingV + TextAdjustV,
                             TextWidth,
                             Size.Height);
@@ -105,11 +91,36 @@ namespace TaskHopper.CanvasControls
             format.Alignment = StringAlignment.Near;
             format.LineAlignment = StringAlignment.Center;
             format.Trimming = StringTrimming.EllipsisCharacter;
-            var brush = new SolidBrush(FontColor);
-            graphics.DrawString(Text, Font, brush, textBounds, format);
-            brush.Dispose();
+            graphics.DrawString(Text, Font, Brushes.Black, textBounds, format);
         }
 
+        static class TagBrushes
+        {
+            private static Pen GenBorderPen()
+            {
+                var bp = new Pen(TagEdge, 2 * Inset);
+                bp.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
+                return bp;
+            }
+
+            public readonly static Pen BorderPen = GenBorderPen();
+
+            private static Pen GenInnerPen()
+            {
+                Pen innerPen = new Pen(TagBack);
+                innerPen.Width = Inset;
+                innerPen.LineJoin = System.Drawing.Drawing2D.LineJoin.Round;
+                return innerPen;
+            }
+
+            public readonly static Pen InnerPen = GenInnerPen();
+
+            public readonly static SolidBrush InnerBrush = new SolidBrush(TagBack);
+
+            public readonly static SolidBrush HoleBrush = new SolidBrush(TagEdge);
+
+            public const float Inset = 2f;
+        }
 
 
     }

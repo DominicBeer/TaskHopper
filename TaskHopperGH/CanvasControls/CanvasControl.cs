@@ -33,7 +33,8 @@ namespace TaskHopper.CanvasControls
 
         protected CanvasControl(CanvasControl host)
         {
-            TopLevelAttributes = host.TopLevelAttributes;
+            if(host != null)
+                TopLevelAttributes = host.TopLevelAttributes;
         }
 
         protected void TriggerRedraw() => TopLevelAttributes.DocObject.OnDisplayExpired(true);

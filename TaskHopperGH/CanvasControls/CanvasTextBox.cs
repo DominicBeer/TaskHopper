@@ -8,61 +8,48 @@ using System.Windows.Forms;
 
 namespace TaskHopper.CanvasControls
 {
-    class CardLabel : CanvasControl
+    class CanvasTextBox : CanvasControl
     {
-        Image Icon;
         string Text;
         Font Font;
         float PaddingH;
         float PaddingV;
-        float IconWidth;
-        float TextWidth;
         float TextAdjustV;
         Color FontColor;
 
-        public CardLabel(
+        public CanvasTextBox(
             CanvasControl host,
-            Image icon,
             string text,
             Font font,
             Color fontColor,
-            float height, 
-            float maxTextWidth, 
-            float paddingH = 2f, 
+            float height,
+            float width,
+            float paddingH = 1f,
             float paddingV = 1f,
             float textAdjustV = 0f
             ) : base(host)
         {
-            Icon = icon;
             Text = text;
             Font = font;
             PaddingH = paddingH;
             PaddingV = paddingV;
             TextAdjustV = textAdjustV;
             FontColor = fontColor;
-
-            IconWidth = height / icon.Height * icon.Width;
-            var textSize = TextRenderer.MeasureText(text, font);
-            TextWidth = Math.Min(maxTextWidth, textSize.Width);
-            var totalWidth = paddingH + IconWidth + paddingH + TextWidth + paddingH;
-
-            Size = new SizeF(totalWidth, height + 2 * paddingV);
+            Size = new SizeF(width + 2 * paddingH, height + 2 * paddingV);
 
         }
 
         protected override void RenderBase(Graphics graphics)
         {
-            RenderIcon(graphics);
             RenderText(graphics);
-
         }
 
         private void RenderText(Graphics graphics)
         {
             var textBounds = new RectangleF(
-                            Pivot.X + 2 * PaddingH + IconWidth,
+                            Pivot.X + PaddingH,
                             Pivot.Y + PaddingV + TextAdjustV,
-                            TextWidth,
+                            Size.Width - 2 * PaddingH,
                             Size.Height);
             StringFormat format = new StringFormat();
             format.Alignment = StringAlignment.Near;
@@ -71,17 +58,6 @@ namespace TaskHopper.CanvasControls
             var brush = new SolidBrush(FontColor);
             graphics.DrawString(Text, Font, brush, textBounds, format);
             brush.Dispose();
-        }
-
-        private void RenderIcon(Graphics graphics)
-        {
-            var imageBounds = new RectangleF(
-                            Pivot.X + PaddingH,
-                            Pivot.Y + PaddingV,
-                            IconWidth,
-                            Size.Height - 2 * PaddingV);
-
-            graphics.DrawImage(Icon, imageBounds);
         }
     }
 }
