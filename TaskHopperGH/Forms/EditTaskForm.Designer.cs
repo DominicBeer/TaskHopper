@@ -46,6 +46,8 @@ namespace TaskHopper.Forms
             this.label7 = new System.Windows.Forms.Label();
             this.LinkTextBox = new System.Windows.Forms.TextBox();
             this.ColourPicker = new Grasshopper.GUI.GH_ColourPicker();
+            this.label8 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // NameTextBox
@@ -106,7 +108,7 @@ namespace TaskHopper.Forms
             // 
             // DatePicker
             // 
-            this.DatePicker.Location = new System.Drawing.Point(59, 341);
+            this.DatePicker.Location = new System.Drawing.Point(58, 373);
             this.DatePicker.Name = "DatePicker";
             this.DatePicker.Size = new System.Drawing.Size(166, 20);
             this.DatePicker.TabIndex = 4;
@@ -115,7 +117,7 @@ namespace TaskHopper.Forms
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 347);
+            this.label4.Location = new System.Drawing.Point(7, 377);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 2;
@@ -127,15 +129,15 @@ namespace TaskHopper.Forms
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(8, 289);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 13);
+            this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 2;
-            this.label5.Text = "Status";
+            this.label5.Text = "Status:";
             // 
             // StatusPicker
             // 
             this.StatusPicker.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.StatusPicker.FormattingEnabled = true;
-            this.StatusPicker.Location = new System.Drawing.Point(8, 305);
+            this.StatusPicker.Location = new System.Drawing.Point(10, 307);
             this.StatusPicker.Name = "StatusPicker";
             this.StatusPicker.Size = new System.Drawing.Size(217, 21);
             this.StatusPicker.TabIndex = 3;
@@ -145,7 +147,7 @@ namespace TaskHopper.Forms
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 376);
+            this.label6.Location = new System.Drawing.Point(7, 404);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 13);
             this.label6.TabIndex = 2;
@@ -156,7 +158,7 @@ namespace TaskHopper.Forms
             // 
             this.TagComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TagComboBox.FormattingEnabled = true;
-            this.TagComboBox.Location = new System.Drawing.Point(10, 397);
+            this.TagComboBox.Location = new System.Drawing.Point(10, 425);
             this.TagComboBox.Name = "TagComboBox";
             this.TagComboBox.Size = new System.Drawing.Size(170, 21);
             this.TagComboBox.TabIndex = 3;
@@ -165,7 +167,7 @@ namespace TaskHopper.Forms
             // AddTagButton
             // 
             this.AddTagButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddTagButton.Location = new System.Drawing.Point(186, 396);
+            this.AddTagButton.Location = new System.Drawing.Point(186, 424);
             this.AddTagButton.Name = "AddTagButton";
             this.AddTagButton.Size = new System.Drawing.Size(29, 21);
             this.AddTagButton.TabIndex = 5;
@@ -177,7 +179,7 @@ namespace TaskHopper.Forms
             // 
             this.TagLayoutPanel.AutoScroll = true;
             this.TagLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.TagLayoutPanel.Location = new System.Drawing.Point(11, 424);
+            this.TagLayoutPanel.Location = new System.Drawing.Point(11, 452);
             this.TagLayoutPanel.Name = "TagLayoutPanel";
             this.TagLayoutPanel.Size = new System.Drawing.Size(204, 173);
             this.TagLayoutPanel.TabIndex = 6;
@@ -216,11 +218,33 @@ namespace TaskHopper.Forms
             this.ColourPicker.TabIndex = 8;
             this.ColourPicker.Load += new System.EventHandler(this.gH_ColourPicker1_Load);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 345);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(55, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Has Date:";
+            this.label8.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(69, 344);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // EditTaskForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(425, 614);
+            this.ClientSize = new System.Drawing.Size(425, 669);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.StatusPicker);
             this.Controls.Add(this.ColourPicker);
@@ -230,6 +254,7 @@ namespace TaskHopper.Forms
             this.Controls.Add(this.DatePicker);
             this.Controls.Add(this.TagComboBox);
             this.Controls.Add(this.OwnerComboBox);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
@@ -267,5 +292,7 @@ namespace TaskHopper.Forms
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox LinkTextBox;
         private Grasshopper.GUI.GH_ColourPicker ColourPicker;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

@@ -78,12 +78,16 @@
     <Compile Include="CanvasControls\ControlLibrary.cs" />
     <Compile Include="CanvasControls\FlowLayoutCanvasControlHost.cs" />
     <Compile Include="CanvasControls\IconButton.cs" />
+    <Compile Include="CanvasControls\KanbanBoard.cs" />
+    <Compile Include="CanvasControls\KanbanColumn.cs" />
+    <Compile Include="CanvasControls\LevelOfDetail.cs" />
     <Compile Include="CanvasControls\Separator.cs" />
     <Compile Include="CanvasControls\StatusBar.cs" />
     <Compile Include="CanvasControls\TagLabel.cs" />
     <Compile Include="CanvasControls\TaskCardControl.cs" />
-    <Compile Include="CanvasControls\TaskCardHost.cs" />
     <Compile Include="Components\CanvasControlAttributes.cs" />
+    <Compile Include="Components\KanbanBoardAttributes.cs" />
+    <Compile Include="Components\KanbanBoardComponent.cs" />
     <Compile Include="Components\TaskCardAttributes.cs" />
     <Compile Include="Components\TaskCardComponent.cs" />
     <Compile Include="Components\TH_Task_Goo.cs" />
@@ -185,6 +189,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\IconDateTimeLate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\CardIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

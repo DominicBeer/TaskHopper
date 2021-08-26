@@ -27,7 +27,18 @@ namespace TaskHopper.Forms
             InitializeComponent();
             NameTextBox.Text = source.Name;
             DescriptionTextBox.Text = source.Description;
-            DatePicker.Value = source.Date;
+            checkBox1.Checked = source.HasDate;
+            if(source.HasDate)
+            {
+                DatePicker.Value = source.Date;
+                DatePicker.Enabled = true;
+            }
+            else
+            {
+                DatePicker.Value = DateTime.Now;
+                DatePicker.Enabled = false;
+            }
+            
             LinkTextBox.Text = source.Link;
             StatusPicker.Items.AddRange(TaskStatusWriter.All);
             StatusPicker.SelectedItem = new TaskStatusWriter(source.Status);
@@ -51,6 +62,7 @@ namespace TaskHopper.Forms
             var description = DescriptionTextBox.Text;
             var owner = OwnerComboBox.Text;
             var link = LinkTextBox.Text;
+            var hasDate = checkBox1.Checked;
             var date = DatePicker.Value;
             var status = ((TaskStatusWriter)StatusPicker.SelectedItem).Status;
             var tags = new HashSet<string>();
@@ -62,8 +74,16 @@ namespace TaskHopper.Forms
                     tags.Add(ts.TagText);
                 }
             }
-            var returnTask = new TH_Task(name, description, owner, link, color, date, status, tags, Source.Source);
-            Component.SetTask(returnTask);
+            if (hasDate)
+            {
+                var returnTask = new TH_Task(name, description, owner, link, color, date, status, tags, Source.Source);
+                Component.SetTask(returnTask);
+            }
+            else
+            {
+                var returnTask = new TH_Task(name, description, owner, link, color, status, tags, Source.Source);
+                Component.SetTask(returnTask);
+            }
         }
 
         private void EditTaskForm_Load(object sender, EventArgs e)
@@ -163,6 +183,18 @@ namespace TaskHopper.Forms
         private void gH_ColourPicker1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked == true)
+            {
+                this.DatePicker.Enabled = true;
+            }
+            else
+            {
+                this.DatePicker.Enabled = false;
+            }
         }
     }
 }

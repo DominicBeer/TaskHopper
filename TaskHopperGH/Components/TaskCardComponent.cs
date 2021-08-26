@@ -29,15 +29,15 @@ namespace TaskHopper.Components
               "TaskHopper", "Tasks")
         {
             
-            var tags = new List<string>() { "Test", "Will It Work??","Probably Not" };
+            var tags = new List<string>();
             InternalTask = new TH_Task(
-                "A really really really long name, far too long, silly in fact",
-                "Some really boring task, sorry but you're not going to enjoy, better start grinding",
-                "Dom Beer",
-                @"C:\Users\Dominic\source\repos\Taskhopper\TaskHopperGH\Images",
-                Color.LawnGreen,
-                new DateTime(2021, 5, 25),
-                TaskStatus.InProgress,
+                "Task Name",
+                "Task Description",
+                "Owner Name",
+                "",
+                Color.LightSkyBlue,
+                DateTime.Now,
+                TaskStatus.ToDo,
                 tags,
                 this);
             SolvedTask = InternalTask;
@@ -88,10 +88,10 @@ namespace TaskHopper.Components
         {
             Grasshopper.Kernel.Data.GH_Structure<IGH_Goo> tree;
             DA.GetDataTree(0, out tree);
-            var statsIn = tree.Where(goo => goo is TH_Task_Goo).Select(goo => (int)((TH_Task_Goo)goo).Value.Status);
-            if (statsIn.Count() != 0)
+            var tasksIn = tree.Where(goo => goo is TH_Task_Goo).Select(goo => ((TH_Task_Goo)goo).Value);
+            if (tasksIn.Count() != 0)
             {
-                var statusIn = (TaskStatus)statsIn.Min();
+                var statusIn = (TaskStatus)tasksIn.Select(t => Math.Min((int)t.Status, (int)t.StatusIn)).Min();
                 InternalTask = InternalTask.SetStatusIn(statusIn);
                 UpdateAttributeTask();
             }
@@ -111,9 +111,7 @@ namespace TaskHopper.Components
         {
             get
             {
-                //You can add image files to your project resources and access them like this:
-                // return Resources.IconForThisComponent;
-                return null;
+                return Resources.CardIcon;
             }
         }
 

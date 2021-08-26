@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TaskHopper.Util;
 using static TaskHopper.Constants.TH_Colors;
 
 namespace TaskHopper.CanvasControls
@@ -60,11 +61,23 @@ namespace TaskHopper.CanvasControls
             return border.Select(vector => Pivot + vector + new SizeF(h,0)).ToArray();
         }
 
-        protected override void RenderBase(Graphics graphics)
+        protected override void RenderBase(Graphics graphics, LevelOfDetail lod)
         {
-            RenderTag(graphics);
-            RenderText(graphics);
+            if (lod == LevelOfDetail.High)
+            {
+                RenderTag(graphics);
+                RenderText(graphics);
+            }
+            else if (lod == LevelOfDetail.Medium)
+            {
+                RenderTagMedium(graphics);
+            }
+        }
 
+        private void RenderTagMedium(Graphics graphics)
+        {
+            
+            graphics.FillRectangle(TagBrushes.MediumBrush, Bounds.Shrink(PaddingH, PaddingV));
         }
 
         private void RenderTag(Graphics graphics)
@@ -120,6 +133,7 @@ namespace TaskHopper.CanvasControls
             public readonly static SolidBrush HoleBrush = new SolidBrush(TagEdge);
 
             public const float Inset = 2f;
+            public readonly static SolidBrush MediumBrush = new SolidBrush(TagMiddle);
         }
 
 

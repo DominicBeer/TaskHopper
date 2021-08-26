@@ -44,9 +44,12 @@ namespace TaskHopper.CanvasControls
             BarHeight = barHeight;
         }
 
-        protected override void RenderBase(Graphics graphics)
+        protected override void RenderBase(Graphics graphics, LevelOfDetail lod)
         {
-            RenderBackground(graphics);
+            if (lod != LevelOfDetail.Low)
+            {
+                RenderBackground(graphics);
+            }
             RenderBar(graphics);
         }
         void RenderBackground(Graphics graphics)

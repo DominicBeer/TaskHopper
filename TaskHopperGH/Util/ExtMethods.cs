@@ -13,5 +13,15 @@ namespace TaskHopper.Util
         {
             return new PointF(r.X + r.Width / 2f, r.Y + r.Height / 2f);
         }
+
+        public static RectangleF Shrink(this RectangleF r, float x, float y)
+        {
+            return new RectangleF(r.X + x, r.Y + y, r.Width - 2 * x, r.Height - 2 * y);
+        }
+
+        public static RectangleF Grow(this RectangleF r, float x, float y)
+        {
+            return new RectangleF(r.X - x, r.Y - y, r.Width + 2 * x, r.Height + 2 * y);
+        }
     }
 }

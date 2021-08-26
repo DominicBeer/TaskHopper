@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TaskHopper.Util;
 
 namespace TaskHopper.CanvasControls
 {
@@ -36,12 +37,24 @@ namespace TaskHopper.CanvasControls
             TextAdjustV = textAdjustV;
             FontColor = fontColor;
             Size = new SizeF(width + 2 * paddingH, height + 2 * paddingV);
-
         }
 
-        protected override void RenderBase(Graphics graphics)
+        protected override void RenderBase(Graphics graphics, LevelOfDetail lod)
         {
-            RenderText(graphics);
+            if (lod == LevelOfDetail.High)
+            {
+                RenderText(graphics);
+            }
+            else if (lod == LevelOfDetail.Medium && Font.Size > 8.5)
+            {
+                RenderText(graphics);
+            }
+            else if (lod == LevelOfDetail.Medium || lod == LevelOfDetail.Low && Font.Size > 8.5)
+            {
+                var brush = new SolidBrush(FontColor.Lighten());
+                graphics.FillRectangle(brush, Bounds.Shrink(PaddingH, 0f));
+                brush.Dispose();
+            }
         }
 
         private void RenderText(Graphics graphics)

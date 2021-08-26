@@ -19,13 +19,17 @@ namespace TaskHopper.CanvasControls
             Color = color;
         }
 
-        protected override void RenderBase(Graphics graphics)
+        protected override void RenderBase(Graphics graphics, LevelOfDetail lod)
         {
-            var brush = new SolidBrush(Color);
-            var pen = new Pen(brush, Thk);
-            graphics.DrawLine(pen, Pivot, Pivot + new SizeF(0, Height));
-            brush.Dispose();
-            pen.Dispose();
+            if (lod == LevelOfDetail.High)
+            {
+                var brush = new SolidBrush(Color);
+                var pen = new Pen(brush, Thk);
+                graphics.DrawLine(pen, Pivot, Pivot + new SizeF(0, Height));
+                brush.Dispose();
+                pen.Dispose();
+            }
+
         }
     }
 }

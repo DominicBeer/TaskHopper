@@ -20,10 +20,10 @@ namespace TaskHopper.CanvasControls
         protected RectangleF Bounds => new RectangleF(Pivot, Size);
         internal IGH_Attributes TopLevelAttributes { get; private set; }
         internal void SetTopLevelAttributes(IGH_Attributes attributes) => TopLevelAttributes = attributes;
-        public virtual void RenderAt(PointF pivot, Graphics graphics)
+        public virtual void RenderAt(PointF pivot, Graphics graphics, LevelOfDetail lod)
         {
             Pivot = pivot;
-            RenderBase(graphics);
+            RenderBase(graphics,lod);
         }
 
         protected CanvasControl(IGH_Attributes parent)
@@ -43,7 +43,7 @@ namespace TaskHopper.CanvasControls
         /// Abstract method where rendering is implemented
         /// </summary>
         /// <param name="graphics"></param>
-        protected abstract void RenderBase(Graphics graphics);
+        protected abstract void RenderBase(Graphics graphics, LevelOfDetail lod);
 
         /// <summary>
         /// Double clicks should only return "Handled" or "Ignore"

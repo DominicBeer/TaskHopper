@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace TaskHopper.CanvasControls
 {
-  
-
     abstract class CanvasButton : CanvasControl
     {
         bool pressed = false;
@@ -37,41 +35,41 @@ namespace TaskHopper.CanvasControls
             return Bounds.Contains(pt);
         }
 
-        public override void RenderAt(PointF pivot, Graphics graphics)
+        public override void RenderAt(PointF pivot, Graphics graphics, LevelOfDetail lod)
         {
             Pivot = pivot;
             if (pressed && hover)
             {
-                RenderPressedOn(graphics);
+                RenderPressedOn(graphics, lod);
             }
             else if (pressed)
             {
-                RenderPressedOff(graphics);
+                RenderPressedOff(graphics, lod);
             }
             else if (hover)
             {
-                RenderHover(graphics);
+                RenderHover(graphics, lod);
             }
             else
             {
-                RenderBase(graphics);
+                RenderBase(graphics, lod);
             }
         }
 
-        protected virtual void RenderHover(Graphics graphics)
+        protected virtual void RenderHover(Graphics graphics,LevelOfDetail lod)
         {
             RenderTransparentBounds(graphics, 40);
-            RenderBase(graphics);
+            RenderBase(graphics,lod);
         }
-        protected virtual void RenderPressedOn(Graphics graphics)//mouse is pressed on button
+        protected virtual void RenderPressedOn(Graphics graphics, LevelOfDetail lod)//mouse is pressed on button
         {
             RenderTransparentBounds(graphics, 70);
-            RenderBase(graphics);
+            RenderBase(graphics,lod);
         }
-        protected virtual void RenderPressedOff(Graphics graphics)//mouse has pressed on button but cursor since moved out of buttons bounds.
+        protected virtual void RenderPressedOff(Graphics graphics, LevelOfDetail lod)//mouse has pressed on button but cursor since moved out of buttons bounds.
         {
             RenderTransparentBounds(graphics, 40);
-            RenderBase(graphics);
+            RenderBase(graphics,lod);
         }
 
         private void RenderTransparentBounds(Graphics graphics, int transparency)
@@ -109,11 +107,13 @@ namespace TaskHopper.CanvasControls
             {
                 pressed = false;
                 OnClick();
+                TriggerRedraw();
                 return GH_ObjectResponse.Release;
             }
             if (pressed) //mouse held down then moved off button
             {
                 pressed = false;
+                TriggerRedraw();
                 return GH_ObjectResponse.Release;
             }
             return GH_ObjectResponse.Ignore;

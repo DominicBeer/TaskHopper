@@ -82,7 +82,7 @@ namespace TaskHopper.CanvasControls
             SubControls = newControls;
         }
 
-        protected override void RenderBase(Graphics graphics)
+        protected override void RenderBase(Graphics graphics, LevelOfDetail lod)
         {
             //Doesn't do any base rendering
         }

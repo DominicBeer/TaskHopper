@@ -57,7 +57,7 @@ namespace TaskHopper.CanvasControls
 
             labels.Add(StatusLabel(task.Status, null));
 
-            if (task.Date != default)
+            if (task.HasDate)
             {
                 labels.Add(DatePart(task.Date, task.IsLate, null));
             }

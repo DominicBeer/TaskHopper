@@ -4,12 +4,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 namespace TaskHopper.Util
 {
     //Thanks to James Ramsden blog for this: http://james-ramsden.com/convert-from-hsl-to-rgb-colour-codes-in-c/
-    class ColorTransforms
+    public static class ColorTransforms
     {
+        public static Color Lighten(this Color color) => ControlPaint.LightLight(ControlPaint.Light(color,0.9f));
         public static Color ColorFromHSL(double h, double s, double l)
         {
             double r = 0, g = 0, b = 0;

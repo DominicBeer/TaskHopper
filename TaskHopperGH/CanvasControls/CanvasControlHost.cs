@@ -39,11 +39,11 @@ namespace TaskHopper.CanvasControls
             pairs.ForEach(pair => SubControls.Remove(pair));
         }
 
-        public override void RenderAt(PointF pivot, Graphics graphics)
+        public override void RenderAt(PointF pivot, Graphics graphics, LevelOfDetail lod)
         {
             Pivot = pivot;
-            RenderBase(graphics);
-            SubControls.ForEach(s => s.subControl.RenderAt(pivot + s.relPivot, graphics));
+            RenderBase(graphics, lod);
+            SubControls.ForEach(s => s.subControl.RenderAt(pivot + s.relPivot, graphics, lod));
         }
 
 

@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using TaskHopper.Util;
 using TaskHopper.Core;
 using TaskHopper.CanvasControls;
+using System.Diagnostics;
 
 namespace TaskHopper.Components
 {
@@ -75,7 +76,8 @@ namespace TaskHopper.Components
             }
             return base.RespondToMouseMove(sender, e);
         }
-
+        long performAvg = 5000;
+        int renderCount = 0;
         protected override void Render(GH_Canvas canvas, Graphics graphics, GH_CanvasChannel channel)
         {
             if (channel == GH_CanvasChannel.Wires)
@@ -86,9 +88,27 @@ namespace TaskHopper.Components
             }
             if (channel == GH_CanvasChannel.Objects)
             {
-                RenderGrips(graphics);
-                Control.RenderAt(IntPivot, graphics);
-                RenderOverlay(graphics);
+                if (canvas.Viewport.VisibleRegion.IntersectsWith(Bounds.Grow(5f, 5f)))
+                {
+                    //renderCount++;
+                    //var sw = new Stopwatch();
+                    //sw.Start();
+
+                    
+                    var zoom = canvas.Viewport.Zoom;
+                    var lod = zoom > 0.55
+                        ? LevelOfDetail.High
+                        : zoom > 0.32
+                            ? LevelOfDetail.Medium
+                            : LevelOfDetail.Low;
+
+                    RenderGrips(graphics);
+                    Control.RenderAt(IntPivot, graphics,lod);
+                    RenderOverlay(graphics);
+                    //sw.Stop();
+                    //performAvg = (long)(0.95 * performAvg + 0.05 * sw.ElapsedTicks);
+                    //graphics.DrawString(performAvg.ToString(), SystemFonts.DialogFont, Brushes.Red, Pivot);
+                }
             }
             else
             {
@@ -157,7 +177,10 @@ namespace TaskHopper.Components
             var condition = (Selected, Owner.RuntimeMessageLevel);
             var blankColor = Color.FromArgb(0, 255, 255, 255);
             SolidBrush sb = new SolidBrush(Color.FromArgb(0, 255, 255, 255));
-            if (condition == (true, GH_RuntimeMessageLevel.Blank))
+            if (condition == (false, GH_RuntimeMessageLevel.Blank))
+            {
+            }
+            else if (condition == (true, GH_RuntimeMessageLevel.Blank))
             {
                 sb.Color = Constants.TH_Colors.SelectedNormal;
             }

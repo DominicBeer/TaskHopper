@@ -3,6 +3,7 @@ using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -71,16 +72,17 @@ namespace TaskHopper.CanvasControls
                 MessageBox.Show("Task has lost connection to its source component");
             }
         }
-
-        protected override void RenderBase(Graphics graphics)
+        
+        protected override void RenderBase(Graphics graphics, LevelOfDetail lod)
         {
-
+            
             var borderBrush = new SolidBrush(Color);
             var b = Bounds;
             float t = 3f;
             graphics.FillRectangle(borderBrush, b);
             graphics.FillRectangle(Brushes.White, b.X + t , b.Y + t, b.Width - 2*t, b.Height - 2*t - ChinHeight);
             borderBrush.Dispose();
+           
         }
     }
 }

@@ -23,6 +23,7 @@ namespace TaskHopper.Core
         public string Link { get; private set; }
         public List<string> Tags => _tags.ToList();
         public Color Color { get; private set; }
+        public bool HasDate { get; private set; }
         public DateTime Date { get; private set; }
         public TaskStatus Status { get; private set; }
         public TaskStatus StatusIn { get; private set; }
@@ -56,7 +57,23 @@ namespace TaskHopper.Core
             Owner = owner;
             Link = link;
             Color = color;
+            HasDate = true;
             Date = date;
+            Status = status;
+            StatusIn = status;
+            Source = source;
+            _tags = new ImmutableHashSet<string>(tags);
+        }
+
+        public TH_Task(string name, string description, string owner, string link, Color color, TaskStatus status, IEnumerable<string> tags, TaskCardComponent source)
+        {
+            Name = name;
+            Description = description;
+            Owner = owner;
+            Link = link;
+            Color = color;
+            HasDate = false;
+            Date = default;
             Status = status;
             StatusIn = status;
             Source = source;
@@ -69,8 +86,12 @@ namespace TaskHopper.Core
             writer.SetString("tDescription", Description);
             writer.SetString("tOwner", Owner);
             writer.SetString("tLink", Link);
+            writer.SetBoolean("tHasDate", HasDate);
             writer.SetDrawingColor("tColor", Color);
-            writer.SetDate("tDate", Date);
+            if(HasDate)
+            {
+                writer.SetDate("tDate", Date);
+            }
             writer.SetInt32("tStatus", (int)Status);
             writer.SetEnumerable("tTags", _tags, WriteString);
             return true;
@@ -83,7 +104,13 @@ namespace TaskHopper.Core
             Owner = reader.GetString("tOwner");
             Link = reader.GetString("tLink");
             Color = reader.GetDrawingColor("tColor");
-            Date = reader.GetDate("tDate");
+            HasDate = reader.ItemExists("tHasDate") 
+                ? reader.GetBoolean("tHasDate")
+                : false;
+            if (HasDate)
+            {
+                Date = reader.GetDate("tDate");
+            }
             Status = (TaskStatus)reader.GetInt32("tStatus");
             StatusIn = Status;
             _tags = new ImmutableHashSet<string>(reader.GetEnumerable("tTags",ReadString));

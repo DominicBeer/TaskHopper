@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TaskHopper.Util;
 
 namespace TaskHopper.CanvasControls
 {
@@ -50,10 +51,19 @@ namespace TaskHopper.CanvasControls
 
         }
 
-        protected override void RenderBase(Graphics graphics)
+        protected override void RenderBase(Graphics graphics, LevelOfDetail lod)
         {
-            RenderIcon(graphics);
-            RenderText(graphics);
+            if (lod == LevelOfDetail.High)
+            {
+                RenderIcon(graphics);
+                RenderText(graphics);
+            }
+            else if (lod == LevelOfDetail.Medium)
+            {
+                var brush = new SolidBrush(FontColor.Lighten());
+                graphics.FillRectangle(brush, Bounds.Shrink(PaddingH, PaddingV));
+                brush.Dispose();
+            }
 
         }
 

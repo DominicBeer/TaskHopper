@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using TaskHopper.Util;
 
 namespace TaskHopper.CanvasControls
 {
@@ -29,14 +31,23 @@ namespace TaskHopper.CanvasControls
             Icon = icon;
         }
 
-        protected override void RenderBase(Graphics graphics)
+        protected override void RenderBase(Graphics graphics, LevelOfDetail lod)
         {
-            var imageBounds = new RectangleF(
-                Pivot.X + PaddingH,
-                Pivot.Y + PaddingV,
-                Size.Width - 2 * PaddingH,
-                Size.Height - 2 * PaddingV);
-            graphics.DrawImage(Icon, imageBounds);
+            if (lod == LevelOfDetail.High)
+            {
+                var imageBounds = new RectangleF(
+                    Pivot.X + PaddingH,
+                    Pivot.Y + PaddingV,
+                    Size.Width - 2 * PaddingH,
+                    Size.Height - 2 * PaddingV);
+                graphics.DrawImage(Icon, imageBounds);
+            }
+            else if (lod == LevelOfDetail.Medium)
+            {
+                var brush = new SolidBrush(Color.Gray);
+                graphics.FillRectangle(brush, Bounds.Shrink(PaddingH, PaddingV));
+                brush.Dispose();
+            }
         }
 
 
