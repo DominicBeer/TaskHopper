@@ -33,3 +33,10 @@ Next up
 Next Up
 - Implement ability to edit color of task.
 - Do internal expired logic
+
+04/06/21
+Been a while since the last entry, have completely reworked the graphics of the canvas task card. Have made a "Canvas control" class library for making custom gui on GH easier. Re-implemented the task card in this with a new design. Still some things to do:
+- Nickname of task to be task name and non-mutable
+- Reduce task card width when full width not required.
+- Tone down the selected color overlay.
+- Kanban board.
