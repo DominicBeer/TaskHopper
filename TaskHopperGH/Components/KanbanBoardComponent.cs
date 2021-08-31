@@ -20,8 +20,8 @@ namespace TaskHopper.Components
         /// Initializes a new instance of the KanbanBoardComponent class.
         /// </summary>
         public KanbanBoardComponent()
-          : base("Kanban Board", "Kanban Board",
-              "A Kanban Board for organising tasks",
+          : base("NOT FINISHED Kanban Board", "NOT FINISHED Kanban Board",
+              "DO NOT USE - NOT FINISHED - WILL NOT WORK - A Kanban Board for organising tasks",
               "TaskHopper", "Kanban Board")
         {
         }
