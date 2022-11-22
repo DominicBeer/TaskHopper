@@ -18,7 +18,10 @@ With this comes:
 
 In progress
 
+
+
 # To Run
+_Please note there is currently an issue with windows resolution scaling, I might or might not get round to fixing it_
 
 In latest builds folder:
 * Copy TaskHopper.gha into Grasshopper Libraries folder
